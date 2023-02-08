@@ -1,0 +1,36 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://effects/SpawnExplosion.gd" type="Script" id=1]
+
+[sub_resource type="StreamTexture" id=6]
+load_path = "res://.import/enemy_afterdead_explosion_anim_spritesheet.png-f26020efe723ab5d0f36af6f88090cff.stex"
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = SubResource( 6 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = SubResource( 6 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = SubResource( 6 )
+region = Rect2( 32, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = SubResource( 6 )
+region = Rect2( 48, 0, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=5]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
+"loop": false,
+"name": "default",
+"speed": 10.0
+} ]
+
+[node name="SpawnExplosion" type="AnimatedSprite"]
+frames = SubResource( 5 )
+script = ExtResource( 1 )
+
+[connection signal="animation_finished" from="." to="." method="_on_SpawnExplosion_animation_finished"]
