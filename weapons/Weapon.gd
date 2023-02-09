@@ -27,7 +27,8 @@ func get_attack_input() -> void:
 	elif Input.is_action_just_released("ui_attack"):
 		if animation_player.is_playing() and animation_player.current_animation == "charge":
 			animation_player.play("attack")
-		elif charge_particles.emitting:
+		elif charge_particles.emitting and not animation_player.current_animation == "active_ability":
+			# if emitting only then strong_attack can be triggered without charging during active_ability state
 			animation_player.play("strong_attack")
 	elif Input.is_action_just_released("ui_active_ability") and animation_player.has_animation("active_ability") and not is_busy() and can_active_ability:
 		if weapon_ability:
