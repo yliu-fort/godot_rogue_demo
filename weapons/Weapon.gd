@@ -3,11 +3,16 @@ class_name Weapon
 
 export(bool) var on_floor: bool = false
 
+var can_active_ability: bool = true
+
 onready var animation_player = $AnimationPlayer
 onready var charge_particles = $Node2D/Sprite/ChargeParticles
 onready var hitbox = $Node2D/Sprite/Hitbox
 onready var player_detector: Area2D = $PlayerDetector
 onready var tween: Tween = $Tween
+onready var cool_down_timer: Timer = $CoolDownTimer
+onready var ui = $UI
+onready var ability_icon = $UI/AbilityIcon
 
 export(PackedScene) var weapon_ability = null
 
@@ -24,7 +29,11 @@ func get_attack_input() -> void:
 			animation_player.play("attack")
 		elif charge_particles.emitting:
 			animation_player.play("strong_attack")
-	elif Input.is_action_just_released("ui_active_ability") and animation_player.has_animation("active_ability") and not is_busy():
+	elif Input.is_action_just_released("ui_active_ability") and animation_player.has_animation("active_ability") and not is_busy() and can_active_ability:
+		if weapon_ability:
+			can_active_ability = false
+			cool_down_timer.start()
+			ui.recharge_ability_animation(cool_down_timer.wait_time)
 		animation_player.play("active_ability")
 
 
@@ -78,3 +87,15 @@ func interpolate_pos(initial_pos: Vector2, final_pos: Vector2):
 
 func _on_Tween_tween_completed(_object, _key):
 	player_detector.set_collision_mask_bit(1, true)
+
+
+func _on_CoolDownTimer_timeout():
+	can_active_ability = true
+
+func show():
+	ability_icon.show()
+	.show()
+	
+func hide():
+	ability_icon.hide()
+	.hide()

@@ -16,9 +16,9 @@ func _restore_previous_state():
 		self.hp = self.max_hp
 	for weapon in SavedData.weapons:
 		weapon = weapon.duplicate()
-		weapon.hide()
 		weapon.position = Vector2.ZERO
 		weapons.add_child(weapon)
+		weapon.hide()
 	current_weapon = weapons.get_child(SavedData.equipped_weapon_index)
 	current_weapon.reset_animation()
 	current_weapon.show()
@@ -85,6 +85,7 @@ func pick_up_weapon(weapon: Weapon):
 	current_weapon.cancel_attack()
 	current_weapon = weapon
 	current_weapon.on_floor = false
+	current_weapon.show()
 
 func _drop_weapon():
 	SavedData.weapons.remove(current_weapon.get_index() - 1)
