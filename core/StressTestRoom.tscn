@@ -82,6 +82,7 @@ position = Vector2( 176, 208 )
 position = Vector2( 176, 208 )
 
 [node name="HealthPotion" parent="WeaponSpawnPos/Position2D4" index="0" instance=ExtResource( 4 )]
+position = Vector2( -48, 0 )
 
 [node name="Position2D5" type="Position2D" parent="WeaponSpawnPos" index="4"]
 position = Vector2( 224, 208 )

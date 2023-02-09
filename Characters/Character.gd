@@ -2,6 +2,7 @@ extends RigidBody2D
 class_name Character, "res://heroes/knight/knight_idle_anim_f0.png"
 
 const HIT_EFFECT_SCENE: PackedScene = preload("res://effects/HitEffect.tscn")
+const DAMAGE_TEXT_SCENE: PackedScene = preload("res://ui/DamageText.tscn")
 
 const FRICTION: float = 0.15
 
@@ -37,6 +38,10 @@ func move()->void:
 func take_damage(dam: int, dir: Vector2, force: int) -> void:
 	if state_machine.state != state_machine.states.dead:
 		_spawn_hit_effect()
+		if name == "Player":
+			_spawn_damage_text(dam, Color(1,0,1,1))
+		else:
+			_spawn_damage_text(dam, Color(1,1,1,1))
 		self.hp -= dam
 		if name == "Player":
 			SavedData.hp = hp
@@ -49,7 +54,8 @@ func take_damage(dam: int, dir: Vector2, force: int) -> void:
 
 
 func set_hp(new_hp: int) -> void:
-	hp = int(clamp(new_hp, 0, max_hp))
+	var temp_hp = int(clamp(new_hp, 0, max_hp))
+	hp = temp_hp
 	emit_signal("hp_changed", hp, max_hp)
 
 
@@ -61,3 +67,10 @@ func set_maxhp(new_hp: int) -> void:
 func _spawn_hit_effect():
 	var hit_effect: Sprite = HIT_EFFECT_SCENE.instance()
 	add_child(hit_effect)
+
+func _spawn_damage_text(dam: int, color: Color):
+	var damage_text = DAMAGE_TEXT_SCENE.instance()
+	damage_text.position = self.global_position
+	damage_text.dam_text = str(dam)
+	damage_text.text_color = color
+	get_tree().current_scene.add_child(damage_text)
