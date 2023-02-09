@@ -39,7 +39,7 @@ func take_damage(dam: int, dir: Vector2, force: int) -> void:
 	if state_machine.state != state_machine.states.dead:
 		_spawn_hit_effect()
 		if name == "Player":
-			_spawn_damage_text(dam, Color(1,0,0.8,1))
+			_spawn_damage_text(dam, Color(1,0,1,1))
 		else:
 			_spawn_damage_text(dam, Color(1,1,1,1))
 		self.hp -= dam
