@@ -11,7 +11,7 @@ const FLOOR_TILE_INDEX: int = 5
 const RIGHT_WALL_TILE_INDEX = 7
 const LEFT_WALL_TILE_INDEX = 6
 
-const slime_boss_floor: int = 2
+const slime_boss_floor: int = 5
 
 export(int) var num_levels: int = 5
 
@@ -20,7 +20,7 @@ onready var player: Character = get_parent().get_node("Player")
 
 func _ready():
 	SavedData.num_floor += 1
-	if SavedData.num_floor == slime_boss_floor:
+	if SavedData.num_floor % slime_boss_floor == 0:
 		num_levels = 3
 	_spawn_rooms()
 
@@ -39,14 +39,16 @@ func _spawn_rooms():
 			if i == num_levels - 1:
 				room = END_ROOMS[randi() % END_ROOMS.size()].instance()
 			else:
-				if SavedData.num_floor == slime_boss_floor:
+				if SavedData.num_floor % slime_boss_floor == 0:
 					room = SLIME_BOSS_ROOM.instance()
+					room.num_enemies_to_spawn = int(SavedData.num_floor / slime_boss_floor)
 				else:
 					if (randi() % 3 == 0  or i == num_levels -2) and not special_room_spawned:
 						room = SPECIAL_ROOMS[randi() % SPECIAL_ROOMS.size()].instance()
 						special_room_spawned = true
 					else:
 						room = INTERMEDIATE_ROOMS[randi() % INTERMEDIATE_ROOMS.size()].instance()
+						room.num_enemies_to_spawn += pow(2, SavedData.num_floor-1)
 				
 			var previous_room_tilemap: TileMap = previous_room.get_node("TileMap")
 			var previous_room_door: StaticBody2D = previous_room.get_node("Doors/Door")
