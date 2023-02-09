@@ -20,11 +20,19 @@ onready var player: Character = get_parent().get_node("Player")
 
 func _ready():
 	SavedData.num_floor += 1
-	var grey = max(77 - pow(2, SavedData.num_floor-1), 0)/255.0
-	VisualServer.set_default_clear_color(Color(grey,grey,grey,1.0))
+	_set_background_color()
 	if SavedData.num_floor % slime_boss_floor == 0:
 		num_levels = 3
 	_spawn_rooms()
+
+
+func _set_background_color():
+	# set background color based on floor
+	var grey = max(77 - pow(2, SavedData.num_floor-1), 0) / 255.0
+	var color: Vector3 = Vector3(grey,grey,grey)
+	if SavedData.num_floor >= 9:
+		color.x += min((SavedData.num_floor - 9), 5) / 255.0
+	VisualServer.set_default_clear_color(Color(color.x, color.y, color.z, 1.0))
 
 
 func _spawn_rooms():
