@@ -20,6 +20,8 @@ onready var player: Character = get_parent().get_node("Player")
 
 func _ready():
 	SavedData.num_floor += 1
+	var grey = max(77 - 10 * SavedData.num_floor, 0)/255.0
+	VisualServer.set_default_clear_color(Color(grey,grey,grey,1.0))
 	if SavedData.num_floor % slime_boss_floor == 0:
 		num_levels = 3
 	_spawn_rooms()
