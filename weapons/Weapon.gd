@@ -9,6 +9,7 @@ onready var hitbox = $Node2D/Sprite/Hitbox
 onready var player_detector: Area2D = $PlayerDetector
 onready var tween: Tween = $Tween
 
+export(PackedScene) var weapon_ability = null
 
 func _ready():
 	if not on_floor:
@@ -23,6 +24,18 @@ func get_attack_input() -> void:
 			animation_player.play("attack")
 		elif charge_particles.emitting:
 			animation_player.play("strong_attack")
+	elif Input.is_action_just_released("ui_active_ability") and animation_player.has_animation("active_ability") and not is_busy():
+		animation_player.play("active_ability")
+
+
+func _release_ability():
+	if weapon_ability:
+		var wb = weapon_ability.instance()
+		var mouse_direction: Vector2 = (get_global_mouse_position() - global_position).normalized()
+		wb.rotation = mouse_direction.angle()
+		wb.position = global_position + mouse_direction * 30
+		get_tree().current_scene.add_child(wb)
+
 
 func cancel_attack():
 	animation_player.play("cancel_attack")
