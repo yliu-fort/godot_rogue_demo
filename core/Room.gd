@@ -24,7 +24,8 @@ onready var player_detector: Area2D = get_node("PlayerDetecter")
 
 
 func _ready():
-	num_enemies_to_spawn += pow(2, SavedData.num_floor-1)
+	if not boss_room:
+		num_enemies_to_spawn += pow(2, SavedData.num_floor-1)
 	num_spawnpoints = enemy_positions_container.get_child_count()
 	
 	if num_spawnpoints == 0:
