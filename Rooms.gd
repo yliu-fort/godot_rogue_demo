@@ -48,7 +48,6 @@ func _spawn_rooms():
 						special_room_spawned = true
 					else:
 						room = INTERMEDIATE_ROOMS[randi() % INTERMEDIATE_ROOMS.size()].instance()
-						room.num_enemies_to_spawn += pow(2, SavedData.num_floor-1)
 				
 			var previous_room_tilemap: TileMap = previous_room.get_node("TileMap")
 			var previous_room_door: StaticBody2D = previous_room.get_node("Doors/Door")
