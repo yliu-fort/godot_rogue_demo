@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://weapons/long_axe.png" type="Texture" id=1]
+[ext_resource path="res://weapons/Weapon.tscn" type="PackedScene" id=2]
+[ext_resource path="res://effects/charged_slash_effect.gdshader" type="Shader" id=3]
+
+[sub_resource type="ShaderMaterial" id=1]
+resource_local_to_scene = true
+shader = ExtResource( 3 )
+shader_param/active = false
+
+[node name="LongAxe" instance=ExtResource( 2 )]
+
+[node name="Sprite" parent="Node2D" index="0"]
+material = SubResource( 1 )
+position = Vector2( 7, 7.15256e-07 )
+texture = ExtResource( 1 )
+
+[editable path="Node2D/Sprite/Hitbox"]

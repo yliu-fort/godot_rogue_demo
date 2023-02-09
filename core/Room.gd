@@ -1,9 +1,14 @@
 extends Node2D
+class_name RoomGeo
+
+export(bool) var boss_room = false
 
 const SPAWN_EXPLOSION_SCENE: PackedScene = preload("res://effects/SpawnExplosion.tscn")
 
 const ENEMY_SCENES: Dictionary = {
-	"FLYING_CREATURE": preload("res://Characters/FlyingCreature.tscn")
+	"FLYING_CREATURE": preload("res://Characters/FlyingCreature.tscn"),
+	"GOBLIN": preload("res://Characters/Goblin.tscn"),
+	"SLIMEBOSS": preload("res://Characters/SlimeBoss.tscn")
 }
 
 const TILE_SIZE: int = 16
@@ -33,7 +38,9 @@ func _on_enemy_killed():
 		_open_doors()
 		_open_entrance()
 
-
+func _on_enemy_summoned():
+	num_enemies += 1
+	
 func _open_doors():
 	for door in door_container.get_children():
 		door.open()
@@ -52,7 +59,14 @@ func _spawn_enemies():
 	for enemy_i in num_enemies_to_spawn:
 		var disturb_position = Vector2(randf()-0.5, randf()-0.5)
 		var enemy_position = enemy_positions_container.get_children()[enemy_i % num_spawnpoints]
-		var enemy: KinematicBody2D = ENEMY_SCENES.FLYING_CREATURE.instance()
+		var enemy: Character
+		if boss_room:
+			enemy = ENEMY_SCENES.SLIMEBOSS.instance()
+		else:
+			if randi() % 2 == 0:
+				enemy = ENEMY_SCENES.FLYING_CREATURE.instance()
+			else:
+				enemy = ENEMY_SCENES.GOBLIN.instance()
 		var __ = enemy.connect("tree_exited", self, "_on_enemy_killed")
 		enemy.global_position = enemy_position.position + disturb_position*TILE_SIZE
 		call_deferred("add_child", enemy)
@@ -64,7 +78,7 @@ func _spawn_enemies():
 		yield(get_tree().create_timer(0.01), "timeout")
 
 
-func _on_PlayerDetecter_body_entered(_body: KinematicBody2D):
+func _on_PlayerDetecter_body_entered(_body: Character):
 	player_detector.queue_free()
 	if num_enemies > 0:
 		_close_entrance()

@@ -1,5 +1,7 @@
-extends KinematicBody2D
+extends RigidBody2D
 class_name Character, "res://heroes/knight/knight_idle_anim_f0.png"
+
+const HIT_EFFECT_SCENE: PackedScene = preload("res://effects/HitEffect.tscn")
 
 const FRICTION: float = 0.15
 
@@ -10,16 +12,22 @@ signal hp_changed(new_hp, max_hp)
 export(int) var accerelation: int = 40
 export(int) var max_speed: int = 100
 
+export(int) var flying: bool = false
+
 onready var state_machine: Node = $FiniteStateMachine
 onready var animated_sprite: AnimatedSprite = $AnimatedSprite
 
 var mov_direction: Vector2 = Vector2.ZERO
 var velocity: Vector2 = Vector2.ZERO
 
+func _ready():
+	friction = 0
+
 func _physics_process(_delta: float) -> void:
-	velocity = move_and_slide(velocity)
+	linear_velocity = velocity
 	velocity = lerp(velocity, Vector2.ZERO, FRICTION)
-	
+
+
 func move()->void:
 	mov_direction = mov_direction.normalized()
 	velocity += mov_direction * accerelation
@@ -27,19 +35,29 @@ func move()->void:
 
 
 func take_damage(dam: int, dir: Vector2, force: int) -> void:
-	self.hp -= dam
-	if hp > 0:
-		state_machine.set_state(state_machine.states.hurt)
-		velocity += dir * force
-	else:
-		state_machine.set_state(state_machine.states.dead)
-		velocity += dir * force * 2
+	if state_machine.state != state_machine.states.dead:
+		_spawn_hit_effect()
+		self.hp -= dam
+		if name == "Player":
+			SavedData.hp = hp
+		if hp > 0:
+			state_machine.set_state(state_machine.states.hurt)
+			velocity += dir * force
+		else:
+			state_machine.set_state(state_machine.states.dead)
+			velocity += dir * force * 2
+
 
 func set_hp(new_hp: int) -> void:
 	hp = int(clamp(new_hp, 0, max_hp))
 	emit_signal("hp_changed", hp, max_hp)
-	
+
+
 func set_maxhp(new_hp: int) -> void:
 	max_hp = new_hp
 	hp = max_hp
 	emit_signal("hp_changed", hp, max_hp)
+
+func _spawn_hit_effect():
+	var hit_effect: Sprite = HIT_EFFECT_SCENE.instance()
+	add_child(hit_effect)

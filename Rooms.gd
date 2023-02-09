@@ -2,24 +2,32 @@ extends Navigation2D
 
 const SPAWN_ROOMS: Array = [preload("res://core/SpawnRoom1.tscn"), preload("res://core/spawnRoom0.tscn")]
 const INTERMEDIATE_ROOMS: Array = [preload("res://core/Room0.tscn"), preload("res://core/Room2.tscn")]
+const SPECIAL_ROOMS: Array = [preload("res://core/SpecialRoom0.tscn")]
 const END_ROOMS: Array = [preload("res://core/EndRoom1.tscn"), preload("res://core/EndRoom0.tscn")]
+const SLIME_BOSS_ROOM: PackedScene = preload("res://core/BossRoom0.tscn")
 
 const TILE_SIZE: int = 16
 const FLOOR_TILE_INDEX: int = 5
 const RIGHT_WALL_TILE_INDEX = 7
 const LEFT_WALL_TILE_INDEX = 6
 
+const slime_boss_floor: int = 2
+
 export(int) var num_levels: int = 5
 
-onready var player: KinematicBody2D = get_parent().get_node("Player")
+onready var player: Character = get_parent().get_node("Player")
 
 
 func _ready():
+	SavedData.num_floor += 1
+	if SavedData.num_floor == slime_boss_floor:
+		num_levels = 3
 	_spawn_rooms()
 
 
 func _spawn_rooms():
 	var previous_room: Node2D
+	var special_room_spawned: bool = false
 	
 	for i in num_levels:
 		var room: Node2D
@@ -31,7 +39,14 @@ func _spawn_rooms():
 			if i == num_levels - 1:
 				room = END_ROOMS[randi() % END_ROOMS.size()].instance()
 			else:
-				room = INTERMEDIATE_ROOMS[randi() % INTERMEDIATE_ROOMS.size()].instance()
+				if SavedData.num_floor == slime_boss_floor:
+					room = SLIME_BOSS_ROOM.instance()
+				else:
+					if (randi() % 3 == 0  or i == num_levels -2) and not special_room_spawned:
+						room = SPECIAL_ROOMS[randi() % SPECIAL_ROOMS.size()].instance()
+						special_room_spawned = true
+					else:
+						room = INTERMEDIATE_ROOMS[randi() % INTERMEDIATE_ROOMS.size()].instance()
 				
 			var previous_room_tilemap: TileMap = previous_room.get_node("TileMap")
 			var previous_room_door: StaticBody2D = previous_room.get_node("Doors/Door")
@@ -45,7 +60,7 @@ func _spawn_rooms():
 			
 			var room_tilemap: TileMap = room.get_node("TileMap")
 			room.position = previous_room_door.global_position + Vector2.UP * room_tilemap.get_used_rect().size.y * TILE_SIZE + Vector2.UP * (1 + corridor_height) * TILE_SIZE + Vector2.LEFT * room_tilemap.world_to_map(room.get_node("Entrance/Position2D2").position).x * TILE_SIZE
-			
+
 			
 		add_child(room)
 		previous_room = room

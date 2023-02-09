@@ -17,7 +17,7 @@ script = ExtResource( 3 )
 script = null
 
 [node name="StressTestRoom" parent="Rooms" index="0" instance=ExtResource( 2 )]
-num_enemies_to_spawn = 500
+num_enemies_to_spawn = 1000
 
 [node name="Player" parent="." index="2"]
 position = Vector2( 240, 135 )
@@ -26,3 +26,6 @@ hp = 9999
 
 [node name="Camera2D" parent="." index="3"]
 position = Vector2( 240, 135 )
+
+[node name="Position2D" type="Position2D" parent="." index="4"]
+position = Vector2( 148, 54 )
