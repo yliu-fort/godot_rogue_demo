@@ -11,7 +11,7 @@ const FLOOR_TILE_INDEX: int = 5
 const RIGHT_WALL_TILE_INDEX = 7
 const LEFT_WALL_TILE_INDEX = 6
 
-const slime_boss_floor: int = 2
+const slime_boss_floor: int = 5
 
 export(int) var num_levels: int = 5
 
