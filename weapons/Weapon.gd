@@ -13,6 +13,7 @@ onready var tween: Tween = $Tween
 onready var cool_down_timer: Timer = $CoolDownTimer
 onready var ui = $UI
 onready var ability_icon = $UI/AbilityIcon
+onready var ability_icon_border = $UI/AbilityIcon/ReferenceRect
 
 export(PackedScene) var weapon_ability = null
 
@@ -95,8 +96,13 @@ func _on_CoolDownTimer_timeout():
 
 func show():
 	ability_icon.show()
+	ability_icon_border.show()
 	.show()
 	
 func hide():
 	ability_icon.hide()
+	ability_icon_border.hide()
 	.hide()
+	
+func get_texture() -> Texture:
+	return $Node2D/Sprite.texture

@@ -4,7 +4,6 @@
 [ext_resource path="res://weapons/Weapon.tscn" type="PackedScene" id=2]
 [ext_resource path="res://effects/charged_slash_effect.gdshader" type="Shader" id=3]
 [ext_resource path="res://weapons/AbilityEffect.tscn" type="PackedScene" id=4]
-[ext_resource path="res://skill_icons/Icon47.png" type="Texture" id=5]
 
 [sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true
@@ -591,6 +590,10 @@ tracks/8/keys = {
 "values": [ 400, 150 ]
 }
 
+[sub_resource type="StreamTexture" id=9]
+resource_local_to_scene = true
+load_path = "res://.import/Icon47.png-9122d1da23b78f205f1509127847877a.stex"
+
 [node name="Hammer" instance=ExtResource( 2 )]
 weapon_ability = ExtResource( 4 )
 
@@ -607,7 +610,10 @@ anims/cancel_attack = SubResource( 4 )
 anims/charge = SubResource( 5 )
 anims/strong_attack = SubResource( 6 )
 
-[node name="AbilityIcon" parent="UI" index="0"]
-texture_under = ExtResource( 5 )
+[node name="AbilityIcon" parent="UI" index="1"]
+texture_under = SubResource( 9 )
+
+[node name="ReferenceRect" parent="UI/AbilityIcon" index="0"]
+visible = false
 
 [editable path="Node2D/Sprite/Hitbox"]

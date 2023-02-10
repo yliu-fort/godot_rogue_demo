@@ -6,7 +6,12 @@ enum {UP, DOWN}
 var current_weapon: Weapon = null
 onready var weapons: Node2D = $Weapons
 
+signal weapon_switched(prev_index, new_index)
+signal weapon_picked_up(weapon_texture)
+signal weapon_dropped(index)
+
 func _ready():
+	emit_signal("weapon_picked_up", weapons.get_child(0).get_texture())
 	_restore_previous_state()
 	
 func _restore_previous_state():
@@ -19,9 +24,12 @@ func _restore_previous_state():
 		weapon.position = Vector2.ZERO
 		weapons.add_child(weapon)
 		weapon.hide()
+		emit_signal("weapon_picked_up", weapon.get_texture())
+		emit_signal("weapon_switched", weapons.get_child_count()-2, weapons.get_child_count()-1)
 	current_weapon = weapons.get_child(SavedData.equipped_weapon_index)
 	current_weapon.reset_animation()
 	current_weapon.show()
+	emit_signal("weapon_switched", weapons.get_child_count()-1, SavedData.equipped_weapon_index)
 	
 
 func _process(_delta: float) -> void:
@@ -60,7 +68,8 @@ func cancel_attack():
 	current_weapon.cancel_attack()
 
 func _switch_weapon(direction: int):
-	var index: int = current_weapon.get_index()
+	var prev_index: int = current_weapon.get_index()
+	var index: int = prev_index
 	if direction == UP:
 		index -= 1
 		if index < 0:
@@ -74,10 +83,13 @@ func _switch_weapon(direction: int):
 	current_weapon = weapons.get_child(index)
 	current_weapon.show()
 	SavedData.equipped_weapon_index = index
+	emit_signal("weapon_switched", prev_index, index)
 
 func pick_up_weapon(weapon: Weapon):
 	SavedData.weapons.append(weapon.duplicate())
-	SavedData.equipped_weapon_index = weapons.get_child_count()
+	var prev_index: int = SavedData.equipped_weapon_index
+	var new_index: int = weapons.get_child_count()
+	SavedData.equipped_weapon_index = new_index
 	weapon.get_parent().call_deferred("remove_child", weapon)
 	weapons.call_deferred("add_child", weapon)
 	weapon.set_deferred("owner", weapons)
@@ -86,16 +98,20 @@ func pick_up_weapon(weapon: Weapon):
 	current_weapon = weapon
 	current_weapon.on_floor = false
 	current_weapon.show()
+	emit_signal("weapon_picked_up", weapon.get_texture())
+	emit_signal("weapon_switched", prev_index, new_index)
 
 func _drop_weapon():
 	SavedData.weapons.remove(current_weapon.get_index() - 1)
 	var weapon_to_drop = current_weapon
 	_switch_weapon(UP)
+	emit_signal("weapon_dropped", weapon_to_drop.get_index())
 	weapons.call_deferred("remove_child", weapon_to_drop)
 	get_parent().call_deferred("add_child", weapon_to_drop)
 	weapon_to_drop.set_owner(get_parent())
 	yield(weapon_to_drop.tween, "tree_entered")
 	weapon_to_drop.show()
+	weapon_to_drop.ability_icon.hide()
 	weapon_to_drop.on_floor = true
 	
 	

@@ -682,6 +682,14 @@ texture_progress = ExtResource( 7 )
 fill_mode = 5
 tint_progress = Color( 0.223529, 0.223529, 0.223529, 0.831373 )
 
+[node name="ReferenceRect" type="ReferenceRect" parent="UI/AbilityIcon"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+border_color = Color( 0.741176, 0.741176, 0.741176, 0.647059 )
+border_width = 2.0
+editor_only = false
+
 [node name="Tween" type="Tween" parent="UI"]
 
 [connection signal="area_entered" from="Node2D/Sprite/Hitbox" to="Node2D/Sprite/Hitbox" method="_on_Hitbox_area_entered"]
