@@ -568,7 +568,7 @@ tracks/7/keys = {
 "times": PoolRealArray( 0, 1.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 999, 1 ]
+"values": [ 999, 99 ]
 }
 tracks/8/type = "value"
 tracks/8/path = NodePath("Node2D/Sprite/Hitbox:knockback_force")

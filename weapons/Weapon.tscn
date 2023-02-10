@@ -663,7 +663,7 @@ shape = SubResource( 33 )
 [node name="Tween" type="Tween" parent="."]
 
 [node name="CoolDownTimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 3.0
 one_shot = true
 
 [node name="UI" type="CanvasLayer" parent="."]
@@ -671,12 +671,14 @@ script = ExtResource( 8 )
 
 [node name="AbilityIcon" type="TextureProgress" parent="UI"]
 visible = false
+anchor_left = 1.0
 anchor_top = 1.0
+anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 49.0
-margin_top = -45.0
-margin_right = 81.0
-margin_bottom = -13.0
+margin_left = -64.0
+margin_top = -61.0
+margin_right = -32.0
+margin_bottom = -29.0
 rect_scale = Vector2( 0.5, 0.5 )
 texture_progress = ExtResource( 7 )
 fill_mode = 5

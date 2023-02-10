@@ -15,10 +15,24 @@ func _ready():
 	_restore_previous_state()
 	
 func _restore_previous_state():
-	if SavedData.hp >= 0:
+	if SavedData.max_hp >= 0:
+		self.max_hp = SavedData.max_hp
+		self.max_mp = SavedData.max_mp
+		self.max_exp = SavedData.max_exp
+		self.lv = SavedData.lv
+		self.myexp = SavedData.myexp
 		self.hp = SavedData.hp
+		self.mp = SavedData.mp
 	else:
 		self.hp = self.max_hp
+		self.mp = self.max_mp
+		SavedData.max_hp = self.max_hp
+		SavedData.max_mp = self.max_mp
+		SavedData.max_exp = self.max_exp
+		SavedData.lv = self.lv
+		SavedData.myexp = self.myexp
+		SavedData.hp = self.hp
+		SavedData.mp = self.mp
 	for weapon in SavedData.weapons:
 		weapon = weapon.duplicate()
 		weapon.position = Vector2.ZERO
@@ -42,6 +56,7 @@ func _process(_delta: float) -> void:
 		
 	current_weapon.move(mouse_direction)
 
+
 func get_input() -> void:
 	mov_direction = Vector2.ZERO
 	if Input.is_action_pressed("ui_down"):
@@ -52,6 +67,7 @@ func get_input() -> void:
 		mov_direction += Vector2.RIGHT
 	if Input.is_action_pressed("ui_up"):
 		mov_direction += Vector2.UP
+
 
 func get_attack_input():
 	if not current_weapon.is_busy():
@@ -114,6 +130,10 @@ func _drop_weapon():
 	weapon_to_drop.ability_icon.hide()
 	weapon_to_drop.on_floor = true
 	
-	
 	var throw_dir: Vector2 = (get_global_mouse_position() - position).normalized()
 	weapon_to_drop.interpolate_pos(position, position + throw_dir * 50)
+
+
+func _on_ManaRecoveryTimer_timeout():
+	self.mp += 1
+	SavedData.mp = self.mp

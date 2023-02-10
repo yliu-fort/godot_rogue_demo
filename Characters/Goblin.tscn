@@ -288,6 +288,7 @@ max_hp = 1
 hp = 1
 accerelation = 20
 max_speed = 55
+exp_on_death = 15
 projectile_speed = 130
 
 [node name="FiniteStateMachine" parent="." index="0"]

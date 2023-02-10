@@ -1,7 +1,7 @@
 extends Navigation2D
 
 const SPAWN_ROOMS: Array = [preload("res://core/SpawnRoom1.tscn"), preload("res://core/spawnRoom0.tscn")]
-const INTERMEDIATE_ROOMS: Array = [preload("res://core/Room0.tscn"), preload("res://core/Room2.tscn")]
+const INTERMEDIATE_ROOMS: Array = [preload("res://core/Room0.tscn"), preload("res://core/Room1.tscn"), preload("res://core/Room2.tscn"),preload("res://core/Room3.tscn")]
 const SPECIAL_ROOMS: Array = [preload("res://core/SpecialRoom0.tscn")]
 const END_ROOMS: Array = [preload("res://core/EndRoom1.tscn"), preload("res://core/EndRoom0.tscn")]
 const SLIME_BOSS_ROOM: PackedScene = preload("res://core/BossRoom0.tscn")
@@ -51,7 +51,7 @@ func _spawn_rooms():
 			else:
 				if SavedData.num_floor % slime_boss_floor == 0:
 					room = SLIME_BOSS_ROOM.instance()
-					room.num_enemies_to_spawn = int(SavedData.num_floor / slime_boss_floor)
+					room.num_enemies_to_spawn = int(SavedData.num_floor) / slime_boss_floor
 				else:
 					if (randi() % 3 == 0  or i == num_levels -2) and not special_room_spawned:
 						room = SPECIAL_ROOMS[randi() % SPECIAL_ROOMS.size()].instance()

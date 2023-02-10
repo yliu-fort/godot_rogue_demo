@@ -19,7 +19,7 @@ func _get_transition() -> int:
 				return states.idle
 	return -1
 	
-func _enter_state(_previous_state: int, new_state: int) -> void:
+func _enter_state(_previous_state: int, _new_state: int) -> void:
 	pass
 	
 func _exit_state(_state_exited: int) -> void:

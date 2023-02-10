@@ -7,6 +7,8 @@ onready var navigation: Navigation2D = get_tree().current_scene.get_node("Rooms"
 onready var player: Character = get_tree().current_scene.get_node("Player")
 onready var path_timer: Timer = $PathTimer
 
+export(int) var exp_on_death = 0
+
 func chase() -> void:
 	if path:
 		var vector_to_next_point: Vector2 = path[0] - global_position
@@ -33,4 +35,8 @@ func _on_PathTimer_timeout() -> void:
 
 func _get_path_to_player():
 	path = navigation.get_simple_path(self.global_position, player.position)
+	
+func queue_free():
+	player.obtain_exp(exp_on_death)
+	.queue_free()
 

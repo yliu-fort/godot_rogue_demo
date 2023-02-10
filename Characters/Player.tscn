@@ -304,6 +304,8 @@ linear_damp = 0.0
 script = ExtResource( 4 )
 max_hp = 100
 hp = 100
+max_mp = 100
+mp = 100
 
 [node name="FiniteStateMachine" type="Node" parent="."]
 script = ExtResource( 5 )
@@ -327,3 +329,8 @@ anims/move = SubResource( 16 )
 
 [node name="WoodGun" parent="Weapons" instance=ExtResource( 8 )]
 visible = false
+
+[node name="ManaRecoveryTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="ManaRecoveryTimer" to="." method="_on_ManaRecoveryTimer_timeout"]
