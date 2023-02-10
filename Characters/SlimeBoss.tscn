@@ -401,7 +401,7 @@ height = 8.0
 
 [node name="SlimeBoss" instance=ExtResource( 1 )]
 script = ExtResource( 8 )
-exp_on_death = 300
+exp_on_death = 200
 scale_all = 8
 scaled = false
 mass_coeff = 1
