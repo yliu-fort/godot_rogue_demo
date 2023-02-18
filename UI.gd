@@ -102,5 +102,4 @@ func _on_ResumeButton_pressed():
 
 
 func _on_NextFloorButton_pressed():
-	#SceneTransistor.start_transition_to("res://Game.tscn")
-	SceneTransistor.start_transition_to("res://GameClear.tscn")
+	SceneTransistor.start_transition_to("res://Game.tscn")

@@ -231,16 +231,6 @@ focus_mode = 0
 disabled = true
 text = "Options"
 
-[node name="NextFloorButton" type="Button" parent="PauseMenuContainer"]
-margin_top = 24.0
-margin_right = 79.0
-margin_bottom = 44.0
-grow_horizontal = 2
-grow_vertical = 2
-hint_tooltip = "Cheat function"
-focus_mode = 0
-text = "Next Floor"
-
 [node name="ReturnToMainMenuButton" type="Button" parent="PauseMenuContainer"]
 margin_top = 48.0
 margin_right = 79.0
@@ -250,6 +240,17 @@ grow_vertical = 2
 focus_mode = 0
 text = "MainMenu"
 
+[node name="NextFloorButton" type="Button" parent="PauseMenuContainer"]
+visible = false
+margin_top = 72.0
+margin_right = 79.0
+margin_bottom = 92.0
+grow_horizontal = 2
+grow_vertical = 2
+hint_tooltip = "Cheat function"
+focus_mode = 0
+text = "Next Floor"
+
 [node name="PauseButton" type="CheckButton" parent="."]
 anchor_left = 1.0
 anchor_right = 1.0
@@ -258,6 +259,6 @@ margin_bottom = 40.0
 focus_mode = 0
 
 [connection signal="pressed" from="PauseMenuContainer/ResumeButton" to="." method="_on_ResumeButton_pressed"]
-[connection signal="pressed" from="PauseMenuContainer/NextFloorButton" to="." method="_on_NextFloorButton_pressed"]
 [connection signal="pressed" from="PauseMenuContainer/ReturnToMainMenuButton" to="." method="_on_ReturnToMainMenuButton_pressed"]
+[connection signal="pressed" from="PauseMenuContainer/NextFloorButton" to="." method="_on_NextFloorButton_pressed"]
 [connection signal="toggled" from="PauseButton" to="." method="_on_PauseButton_toggled"]
