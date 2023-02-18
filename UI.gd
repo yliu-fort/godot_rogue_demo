@@ -89,7 +89,6 @@ func _on_Player_weapon_dropped(index: int):
 	
 
 func _on_ReturnToMainMenuButton_pressed():
-	visible = false
 	SceneTransistor.start_transition_to("res://MainMenu.tscn")
 
 
