@@ -3,7 +3,9 @@ extends RoomGeo
 const WEAPONS: Array = [
 preload("res://weapons/Hammer.tscn"),
 preload("res://weapons/LongAxe.tscn"),
-preload("res://weapons/Sword.tscn")]
+preload("res://weapons/Sword.tscn"),
+preload("res://weapons/Bow.tscn"),
+preload("res://weapons/MagicWand.tscn")]
 
 onready var weapon_pos = $WeaponPos
 

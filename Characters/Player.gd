@@ -137,3 +137,7 @@ func _drop_weapon():
 func _on_ManaRecoveryTimer_timeout():
 	self.mp += 1
 	SavedData.mp = self.mp
+	
+func _move_to_gamefail_scene():
+	SceneTransistor.start_transition_to("res://GameFail.tscn")
+

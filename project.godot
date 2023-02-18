@@ -29,6 +29,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://core/Hitbox.gd"
 }, {
+"base": "Hitbox",
+"class": "Magic",
+"language": "GDScript",
+"path": "res://weapons/FireBall.gd"
+}, {
+"base": "Weapon",
+"class": "MagicWeapon",
+"language": "GDScript",
+"path": "res://weapons/MagicWeapon.gd"
+}, {
 "base": "Character",
 "class": "Player",
 "language": "GDScript",
@@ -38,6 +48,16 @@ _global_script_classes=[ {
 "class": "Projectile",
 "language": "GDScript",
 "path": "res://enemies/goblin/ThrowableKnife.gd"
+}, {
+"base": "Hitbox",
+"class": "Projectile2",
+"language": "GDScript",
+"path": "res://enemies/goblin/ThrowablePowerKnife.gd"
+}, {
+"base": "Weapon",
+"class": "RangedWeapon",
+"language": "GDScript",
+"path": "res://RangedWeapon.gd"
 }, {
 "base": "Node2D",
 "class": "RoomGeo",
@@ -54,8 +74,12 @@ _global_script_class_icons={
 "Enemy": "res://enemies/flying creature/fly_anim_f0.png",
 "FiniteStateMachine": "",
 "Hitbox": "",
+"Magic": "",
+"MagicWeapon": "",
 "Player": "",
 "Projectile": "",
+"Projectile2": "",
+"RangedWeapon": "",
 "RoomGeo": "",
 "Weapon": ""
 }
@@ -63,7 +87,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Rogue Demo"
-run/main_scene="res://Game.tscn"
+run/main_scene="res://MainMenu.tscn"
 config/icon="res://icon.png"
 
 [autoload]
@@ -81,6 +105,10 @@ mouse_cursor/custom_image="res://ui/crosshair_1.png"
 mouse_cursor/custom_image_hotspot=Vector2( 8, 8 )
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
+
+[gdnative]
+
+singletons=[ "res://pythonscript.gdnlib" ]
 
 [global]
 

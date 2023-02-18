@@ -1,7 +1,7 @@
 extends Hitbox
 class_name Projectile
 
-var enemy_exited: bool = false
+var self_exited: bool = false
 
 var direction: Vector2 = Vector2.ZERO
 var knife_speed: int = 0
@@ -20,16 +20,16 @@ func _physics_process(delta: float):
 	position += direction * knife_speed * delta
 
 
-func _on_ThrowableKnife_body_exited(_body: Character):
-	if not enemy_exited:
-		enemy_exited = true
+func _on_ThrowableKnife_body_exited(body: Character):
+	if not self_exited:
+		self_exited = true
 		set_collision_mask_bit(0, true)
-		set_collision_mask_bit(1, true)
-		set_collision_mask_bit(2, false)
+		set_collision_mask_bit(1, not body.get_collision_layer_bit(1))
+		set_collision_mask_bit(2, not body.get_collision_layer_bit(2))
 
 
 func _collide(body: Character):
-	if enemy_exited:
+	if self_exited:
 		if body != null:
 			body.take_damage(damage, knockback_direction, knockback_force)
 		queue_free()

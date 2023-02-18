@@ -1,0 +1,88 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://cover_sheets.png" type="Texture" id=1]
+[ext_resource path="res://MainMenu.gd" type="Script" id=2]
+[ext_resource path="res://fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+resource_local_to_scene = true
+size = 32
+outline_size = 2
+outline_color = Color( 0.972549, 0.929412, 0.682353, 1 )
+font_data = ExtResource( 4 )
+
+[node name="MainMenu" type="CanvasLayer"]
+layer = 2
+script = ExtResource( 2 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 7
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -42.0
+margin_top = -118.0
+margin_right = 41.0
+margin_bottom = -26.0
+
+[node name="GameStartButton" type="Button" parent="VBoxContainer"]
+margin_right = 83.0
+margin_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 0
+focus_mode = 0
+mouse_filter = 1
+text = "Game Start"
+
+[node name="ToTestSceneButton" type="Button" parent="VBoxContainer"]
+margin_top = 24.0
+margin_right = 83.0
+margin_bottom = 44.0
+grow_horizontal = 0
+grow_vertical = 0
+focus_mode = 0
+mouse_filter = 1
+text = "Practice"
+
+[node name="OptionsButton" type="Button" parent="VBoxContainer"]
+margin_top = 48.0
+margin_right = 83.0
+margin_bottom = 68.0
+grow_horizontal = 0
+grow_vertical = 0
+focus_mode = 0
+mouse_filter = 1
+disabled = true
+text = "Options"
+
+[node name="QuitGameButton" type="Button" parent="VBoxContainer"]
+margin_top = 72.0
+margin_right = 83.0
+margin_bottom = 92.0
+grow_horizontal = 0
+grow_vertical = 0
+focus_mode = 0
+mouse_filter = 1
+disabled = true
+text = "Exit"
+
+[node name="Title" type="Label" parent="."]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -63.0
+margin_bottom = -24.0
+custom_colors/font_color = Color( 0.964706, 0.282353, 0.192157, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Dive into the deep"
+align = 1
+
+[connection signal="pressed" from="VBoxContainer/GameStartButton" to="." method="_on_GameStartButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/ToTestSceneButton" to="." method="_on_ToTestSceneButton_pressed"]

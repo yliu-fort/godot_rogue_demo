@@ -64,7 +64,40 @@ func take_damage(dam: int, dir: Vector2, force: int) -> void:
 			state_machine.set_state(state_machine.states.dead)
 			velocity += dir * force * 2
 
+func take_fire_damage(dam: int, dir: Vector2, force: int) -> void:
+	if state_machine.state != state_machine.states.dead:
+		_spawn_hit_effect()
+		if name == "Player":
+			_spawn_damage_text(dam, Color(1,0.2,0.4,1))
+		else:
+			_spawn_damage_text(dam, Color(1,0.4,0,1))
+		self.hp -= dam
+		if name == "Player":
+			SavedData.hp = hp
+		if hp > 0:
+			state_machine.set_state(state_machine.states.hurt)
+			velocity += dir * force
+		else:
+			state_machine.set_state(state_machine.states.dead)
+			velocity += dir * force * 2
 
+func take_wind_damage(dam: int, dir: Vector2, force: int) -> void:
+	if state_machine.state != state_machine.states.dead:
+		_spawn_hit_effect()
+		if name == "Player":
+			_spawn_damage_text(dam, Color(1,0.4,0.2,1))
+		else:
+			_spawn_damage_text(dam, Color(0.2,0.8,0.8,1))
+		self.hp -= dam
+		if name == "Player":
+			SavedData.hp = hp
+		if hp > 0:
+			state_machine.set_state(state_machine.states.hurt)
+			velocity += dir * force
+		else:
+			state_machine.set_state(state_machine.states.dead)
+			velocity += dir * force * 2
+			
 func set_hp(new_hp: int) -> void:
 	var temp_hp = int(clamp(new_hp, 0, max_hp))
 	hp = temp_hp

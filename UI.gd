@@ -15,8 +15,8 @@ onready var exp_bar_text = $PlayerStatusContainer/ExpBar/Label
 onready var exp_bar_level_text = $PlayerStatusContainer/ExpBar/LevelLabel
 onready var floor_text = $Floor
 onready var inventory: HBoxContainer = $PanelContainer/Inventory
-
-
+onready var pause_menu: VBoxContainer = $PauseMenuContainer
+onready var pause_button: CheckButton = $PauseButton
 func _ready():
 	if player:
 		var __
@@ -87,3 +87,20 @@ func _on_Player_weapon_picked_up(weapon_texture: Texture):
 func _on_Player_weapon_dropped(index: int):
 	inventory.get_child(index).queue_free()
 	
+
+func _on_ReturnToMainMenuButton_pressed():
+	visible = false
+	SceneTransistor.start_transition_to("res://MainMenu.tscn")
+
+
+func _on_PauseButton_toggled(button_pressed: bool):
+	pause_menu.visible = button_pressed
+
+
+func _on_ResumeButton_pressed():
+	pause_button.pressed=false
+
+
+func _on_NextFloorButton_pressed():
+	#SceneTransistor.start_transition_to("res://Game.tscn")
+	SceneTransistor.start_transition_to("res://GameClear.tscn")
