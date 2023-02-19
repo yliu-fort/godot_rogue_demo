@@ -1,11 +1,16 @@
 extends Hitbox
 class_name Projectile
 
+var caster: Character = null
 var self_exited: bool = false
-
 var direction: Vector2 = Vector2.ZERO
 var knife_speed: int = 0
 
+func _ready():
+	if caster:
+		damage *= caster.atk
+	else:
+		queue_free()
 
 func launch(initial_position: Vector2, dir: Vector2, speed: int) -> void:
 	position = initial_position

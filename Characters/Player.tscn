@@ -318,8 +318,14 @@ linear_damp = 0.0
 script = ExtResource( 4 )
 max_hp = 100
 hp = 100
+hp_incr = 20
 max_mp = 100
 mp = 100
+mp_incr = 1
+atk = 20
+atk_incr = 4
+def = 10
+def_incr = 2
 
 [node name="FiniteStateMachine" type="Node" parent="."]
 script = ExtResource( 5 )

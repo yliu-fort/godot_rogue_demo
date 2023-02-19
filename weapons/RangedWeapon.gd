@@ -13,7 +13,8 @@ func _set_launch_direction():
 
 func _throw_arrow():
 	_set_launch_direction()
-	var projectile: Area2D = THROWABLE_KNIFE_SCENE.instance()
+	var projectile: Projectile = THROWABLE_KNIFE_SCENE.instance()
+	projectile.caster = self.caster
 	projectile.self_exited = true
 	projectile.set_collision_mask_bit(0, true)
 	projectile.set_collision_mask_bit(1, false)
@@ -28,7 +29,8 @@ func _throw_power_arrow():
 	
 
 func _throw_power_arrow_helper(dir: Vector2):
-	var projectile: Area2D = THROWABLE_POWERKNIFE_SCENE.instance()
+	var projectile: Projectile = THROWABLE_POWERKNIFE_SCENE.instance()
+	projectile.caster = self.caster
 	projectile.self_exited = true
 	projectile.set_collision_mask_bit(0, true)
 	projectile.set_collision_mask_bit(1, false)

@@ -44,6 +44,7 @@ func _get_path_to_move_away_from_player():
 
 func _throw_knife():
 	var projectile: Area2D = THROWABLE_KNIFE_SCENE.instance()
+	projectile.caster = self
 	projectile.launch(global_position, (player.position-global_position).normalized(), projectile_speed)
 	get_tree().current_scene.add_child(projectile)
 

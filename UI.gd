@@ -17,7 +17,9 @@ onready var floor_text = $Floor
 onready var inventory: HBoxContainer = $PanelContainer/Inventory
 onready var pause_menu: VBoxContainer = $PauseMenuContainer
 onready var pause_button: CheckButton = $PauseButton
+
 func _ready():
+	pause_mode = Node.PAUSE_MODE_PROCESS
 	if player:
 		var __
 		__ = player.connect("hp_changed", self, "_on_Player_hp_changed")
@@ -94,6 +96,7 @@ func _on_ReturnToMainMenuButton_pressed():
 
 func _on_PauseButton_toggled(button_pressed: bool):
 	pause_menu.visible = button_pressed
+	get_tree().paused = button_pressed
 
 
 func _on_ResumeButton_pressed():
@@ -101,4 +104,9 @@ func _on_ResumeButton_pressed():
 
 
 func _on_NextFloorButton_pressed():
+	pause_button.pressed=false
 	SceneTransistor.start_transition_to("res://Game.tscn")
+
+
+func _on_LevelUpButton_pressed():
+	player._level_up()

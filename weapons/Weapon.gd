@@ -3,7 +3,9 @@ class_name Weapon
 
 export(bool) var on_floor: bool = false
 
+var caster: Character = null setget set_caster
 var can_active_ability: bool = true
+
 
 onready var animation_player = $AnimationPlayer
 onready var charge_particles = $Node2D/Sprite/ChargeParticles
@@ -45,6 +47,7 @@ func _release_ability():
 		var mouse_direction: Vector2 = (get_global_mouse_position() - global_position).normalized()
 		wb.rotation = mouse_direction.angle()
 		wb.position = global_position + mouse_direction * 30
+		wb.caster = caster # player/weapons/weapon: add player's damage
 		get_tree().current_scene.add_child(wb)
 
 
@@ -106,3 +109,7 @@ func hide():
 	
 func get_texture() -> Texture:
 	return $Node2D/Sprite.texture
+
+func set_caster(new_caster: Character):
+	hitbox.caster = new_caster
+	caster = new_caster

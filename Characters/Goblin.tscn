@@ -284,8 +284,12 @@ tracks/1/keys = {
 [node name="Goblin" instance=ExtResource( 1 )]
 mass = 2.0
 script = ExtResource( 5 )
-max_hp = 1
-hp = 1
+max_hp = 20
+hp = 20
+hp_incr = 4
+atk = 30
+atk_incr = 1
+def_incr = 2
 accerelation = 20
 max_speed = 55
 exp_on_death = 15

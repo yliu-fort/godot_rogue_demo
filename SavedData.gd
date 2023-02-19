@@ -11,6 +11,8 @@ var hp: int = -1
 var mp: int = -1
 var myexp: int = -1
 var lv: int = -1
+var atk: int = -1
+var def: int = -1
 
 var weapons: Array = []
 var equipped_weapon_index: int = 0
@@ -31,6 +33,8 @@ func reset_savedata():
 	mp = -1
 	myexp = -1
 	lv = -1
+	atk = -1
+	def = -1
 
 	weapons = []
 	equipped_weapon_index = 0

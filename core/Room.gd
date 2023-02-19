@@ -13,6 +13,7 @@ const ENEMY_SCENES: Dictionary = {
 
 const TILE_SIZE: int = 16
 export(int) var num_enemies_to_spawn: int = 10
+export(int) var enemies_level_to_spawn: int = 0
 var num_enemies: int
 var num_spawnpoints: int
 
@@ -26,6 +27,7 @@ onready var player_detector: Area2D = get_node("PlayerDetecter")
 func _ready():
 	if not boss_room and num_enemies_to_spawn > 0:
 		num_enemies_to_spawn += int(pow(2, SavedData.num_floor-1))
+	enemies_level_to_spawn = SavedData.num_floor
 	num_spawnpoints = enemy_positions_container.get_child_count()
 	
 	if num_spawnpoints == 0:
@@ -71,6 +73,7 @@ func _spawn_enemies():
 				enemy = ENEMY_SCENES.GOBLIN.instance()
 		var __ = enemy.connect("tree_exited", self, "_on_enemy_killed")
 		enemy.global_position = enemy_position.position + disturb_position*TILE_SIZE
+		enemy.lv = enemies_level_to_spawn
 		call_deferred("add_child", enemy)
 		
 		var spawn_explosion: AnimatedSprite = SPAWN_EXPLOSION_SCENE.instance()

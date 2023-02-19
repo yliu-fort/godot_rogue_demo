@@ -23,6 +23,8 @@ func _restore_previous_state():
 		self.myexp = SavedData.myexp
 		self.hp = SavedData.hp
 		self.mp = SavedData.mp
+		self.atk = SavedData.atk
+		self.def = SavedData.def
 	else:
 		self.hp = self.max_hp
 		self.mp = self.max_mp
@@ -33,6 +35,8 @@ func _restore_previous_state():
 		SavedData.myexp = self.myexp
 		SavedData.hp = self.hp
 		SavedData.mp = self.mp
+		SavedData.atk = self.atk
+		SavedData.def = self.def
 	for weapon in SavedData.weapons:
 		weapon = weapon.duplicate()
 		weapon.position = Vector2.ZERO
@@ -43,6 +47,7 @@ func _restore_previous_state():
 	current_weapon = weapons.get_child(SavedData.equipped_weapon_index)
 	current_weapon.reset_animation()
 	current_weapon.show()
+	current_weapon.caster = self
 	emit_signal("weapon_switched", weapons.get_child_count()-1, SavedData.equipped_weapon_index)
 	
 
@@ -96,8 +101,10 @@ func _switch_weapon(direction: int):
 			index = 0
 
 	current_weapon.hide()
+	current_weapon.caster = null
 	current_weapon = weapons.get_child(index)
 	current_weapon.show()
+	current_weapon.caster = self
 	SavedData.equipped_weapon_index = index
 	emit_signal("weapon_switched", prev_index, index)
 
@@ -110,10 +117,12 @@ func pick_up_weapon(weapon: Weapon):
 	weapons.call_deferred("add_child", weapon)
 	weapon.set_deferred("owner", weapons)
 	current_weapon.hide()
+	current_weapon.caster = null
 	current_weapon.cancel_attack()
 	current_weapon = weapon
 	current_weapon.on_floor = false
 	current_weapon.show()
+	current_weapon.caster = self
 	emit_signal("weapon_picked_up", weapon.get_texture())
 	emit_signal("weapon_switched", prev_index, new_index)
 
@@ -129,7 +138,7 @@ func _drop_weapon():
 	weapon_to_drop.show()
 	weapon_to_drop.ability_icon.hide()
 	weapon_to_drop.on_floor = true
-	
+	current_weapon.caster = null
 	var throw_dir: Vector2 = (get_global_mouse_position() - position).normalized()
 	weapon_to_drop.interpolate_pos(position, position + throw_dir * 50)
 

@@ -268,8 +268,16 @@ radius = 4.0
 
 [node name="FlyingCreature" instance=ExtResource( 1 )]
 script = ExtResource( 6 )
+max_hp = 10
+hp = 10
+hp_incr = 8
+atk = 8
+atk_incr = 1
+def = 5
+def_incr = 1
 accerelation = 20
 max_speed = 50
+flying = 1
 exp_on_death = 20
 
 [node name="FiniteStateMachine" parent="." index="0"]

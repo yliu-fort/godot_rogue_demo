@@ -16,6 +16,7 @@ func _enter_tree():
 
 
 func _ready():
+	hitbox.damage *= caster.atk
 	rotation = 0
 	animation_player.play("animation")
 

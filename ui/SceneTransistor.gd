@@ -5,6 +5,9 @@ var new_scene: String
 onready var animation_player = $AnimationPlayer
 
 
+func _ready():
+	pause_mode = Node.PAUSE_MODE_PROCESS
+
 func start_transition_to(path_to_scene):
 	new_scene = path_to_scene
 	animation_player.play("change_scene")

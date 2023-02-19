@@ -16,6 +16,9 @@ func _enter_tree():
 	else:
 		caster.mp -= required_mp
 
+func _ready():
+	damage *= caster.atk
+
 func launch(initial_position: Vector2, dir: Vector2, speed: int) -> void:
 	position = initial_position
 	direction = dir
@@ -51,5 +54,6 @@ func _on_Timer_timeout():
 func queue_free():
 	var firehit: Node2D = FIREHIT_SCENE.instance()
 	firehit.position = global_position
+	firehit.caster = caster
 	get_tree().current_scene.call_deferred("add_child",firehit)
 	.queue_free()

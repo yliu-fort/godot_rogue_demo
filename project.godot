@@ -49,15 +49,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://enemies/goblin/ThrowableKnife.gd"
 }, {
-"base": "Hitbox",
-"class": "Projectile2",
-"language": "GDScript",
-"path": "res://enemies/goblin/ThrowablePowerKnife.gd"
-}, {
 "base": "Weapon",
 "class": "RangedWeapon",
 "language": "GDScript",
-"path": "res://RangedWeapon.gd"
+"path": "res://weapons/RangedWeapon.gd"
 }, {
 "base": "Node2D",
 "class": "RoomGeo",
@@ -78,7 +73,6 @@ _global_script_class_icons={
 "MagicWeapon": "",
 "Player": "",
 "Projectile": "",
-"Projectile2": "",
 "RangedWeapon": "",
 "RoomGeo": "",
 "Weapon": ""

@@ -9,6 +9,9 @@ onready var path_timer: Timer = $PathTimer
 
 export(int) var exp_on_death = 0
 
+func _ready():
+	set_level(lv)
+	
 func chase() -> void:
 	if path:
 		var vector_to_next_point: Vector2 = path[0] - global_position
@@ -35,8 +38,8 @@ func _on_PathTimer_timeout() -> void:
 
 func _get_path_to_player():
 	path = navigation.get_simple_path(self.global_position, player.position)
-	
-func queue_free():
-	player.obtain_exp(exp_on_death)
-	.queue_free()
 
+func queue_free():
+	if is_instance_valid(player):
+		player.obtain_exp(exp_on_death)
+	.queue_free()

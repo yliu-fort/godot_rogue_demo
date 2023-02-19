@@ -7,7 +7,6 @@ export(bool) var scaled = false # when place into the scene manually, set scaled
 export(int) var mass_coeff = 1
 export(int) var hp_coeff = 1
 export(int) var speed_coeff = 20
-export(int) var damage_coeff = 2
 export(int) var knockback_force_coeff = 50
 
 func duplicate_slime():
@@ -33,9 +32,9 @@ func _scale_slime():
 				sp.scale *= scale_all
 		mass = scale_all * mass_coeff
 		hitbox.knockback_force = scale_all * knockback_force_coeff
-		hitbox.damage = scale_all * damage_coeff
-		max_hp = scale_all * hp_coeff
-		hp = scale_all * hp_coeff
+		hitbox.damage = scale_all * atk
+		max_hp *= scale_all
+		hp *= scale_all
 		max_speed = scale_all * speed_coeff
 
 
@@ -46,6 +45,7 @@ func _spawn_slime(direction: Vector2):
 	slime.position = position
 	slime.scale_all = scale_all / 2
 	slime.scaled = false
+	slime.lv = lv
 	get_parent().add_child(slime)
 	slime.velocity += direction * 150
 

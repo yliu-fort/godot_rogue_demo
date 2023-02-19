@@ -1,34 +1,9 @@
-extends Hitbox
-class_name Projectile2
-
-var self_exited: bool = false
-var direction: Vector2 = Vector2.ZERO
-var knife_speed: int = 0
+extends Projectile
 
 onready var arrow_life_timer: Timer = $Timer
 
-func launch(initial_position: Vector2, dir: Vector2, speed: int) -> void:
-	position = initial_position
-	direction = dir
-	knockback_direction = dir
-	knife_speed = speed
-	
-	rotation += dir.angle() + PI/4
-	
 func _ready():
 	arrow_life_timer.start()
-
-
-func _physics_process(delta: float):
-	position += direction * knife_speed * delta
-
-
-func _on_ThrowableKnife_body_exited(body: Character):
-	if not self_exited:
-		self_exited = true
-		set_collision_mask_bit(0, true)
-		set_collision_mask_bit(1, not body.get_collision_layer_bit(1))
-		set_collision_mask_bit(2, not body.get_collision_layer_bit(2))
 
 
 func _collide(body: Character):

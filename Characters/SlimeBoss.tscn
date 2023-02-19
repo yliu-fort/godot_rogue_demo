@@ -401,13 +401,19 @@ height = 8.0
 
 [node name="SlimeBoss" instance=ExtResource( 1 )]
 script = ExtResource( 8 )
+max_hp = 10
+hp = 10
+hp_incr = 80
+atk = 8
+atk_incr = 1
+def = 5
+def_incr = 1
 exp_on_death = 200
 scale_all = 8
 scaled = false
 mass_coeff = 1
 hp_coeff = 1
 speed_coeff = 20
-damage_coeff = 2
 knockback_force_coeff = 50
 
 [node name="FiniteStateMachine" parent="." index="0"]
