@@ -241,6 +241,7 @@ focus_mode = 0
 text = "MainMenu"
 
 [node name="NextFloorButton" type="Button" parent="PauseMenuContainer"]
+visible = false
 margin_top = 72.0
 margin_right = 79.0
 margin_bottom = 92.0
@@ -251,6 +252,7 @@ focus_mode = 0
 text = "Next Floor"
 
 [node name="LevelUpButton" type="Button" parent="PauseMenuContainer"]
+visible = false
 margin_top = 96.0
 margin_right = 79.0
 margin_bottom = 116.0
