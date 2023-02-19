@@ -129,7 +129,7 @@ func set_maxmp(new_mp: int) -> void:
 	emit_signal("mp_changed", mp, max_mp)
 	
 func set_exp(new_exp: int) -> void:
-	if new_exp >= max_exp:
+	if new_exp >= max_exp and lv < max_lv:
 		var exp_diff = new_exp - max_exp
 		self._level_up()
 		myexp = exp_diff
