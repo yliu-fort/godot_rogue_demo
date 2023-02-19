@@ -36,5 +36,8 @@ func reset_savedata():
 	atk = -1
 	def = -1
 
-	weapons = []
+	for weapon in weapons:
+		weapon.queue_free()
+		
+	weapons.clear()
 	equipped_weapon_index = 0

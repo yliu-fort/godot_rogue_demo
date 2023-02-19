@@ -91,7 +91,7 @@ func is_busy() -> bool:
 func reset_animation():
 	animation_player.play("RESET")
 
-func _on_PlayerDetector_body_entered(body: PhysicsBody2D):
+func _on_PlayerDetector_body_entered(body: Character):
 	if body != null:
 		player_detector.set_collision_mask_bit(0, false)
 		player_detector.set_collision_mask_bit(1, false)
