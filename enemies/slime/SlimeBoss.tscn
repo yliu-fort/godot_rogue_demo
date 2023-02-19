@@ -458,4 +458,7 @@ rotation = 1.5708
 shape = SubResource( 24 )
 disabled = true
 
+[node name="Position2D" parent="." index="9"]
+position = Vector2( 0, -7 )
+
 [connection signal="timeout" from="JumpTimer" to="FiniteStateMachine" method="_on_JumpTimer_timeout"]
