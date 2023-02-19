@@ -39,7 +39,7 @@ func _scale_slime():
 
 
 func _spawn_slime(direction: Vector2):
-	var slime = load("res://Characters/SlimeBoss.tscn").instance()
+	var slime = load("res://enemies/slime/SlimeBoss.tscn").instance()
 	var __ = slime.connect("tree_entered", get_parent(), "_on_enemy_summoned")
 	__ = slime.connect("tree_exited", get_parent(), "_on_enemy_killed")
 	slime.position = position

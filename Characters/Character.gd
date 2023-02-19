@@ -196,7 +196,8 @@ func _load_savedata():
 	self.lv = SavedData.lv
 	self.atk = SavedData.atk
 	self.def = SavedData.def
-	
+
+
 func _spawn_hit_effect():
 	var hit_effect: Sprite = HIT_EFFECT_SCENE.instance()
 	add_child(hit_effect)

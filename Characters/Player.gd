@@ -84,7 +84,8 @@ func get_attack_input():
 			_drop_weapon()
 			
 	current_weapon.get_attack_input()
-	
+
+
 func cancel_attack():
 	current_weapon.cancel_attack()
 
@@ -126,6 +127,7 @@ func pick_up_weapon(weapon: Weapon):
 	emit_signal("weapon_picked_up", weapon.get_texture())
 	emit_signal("weapon_switched", prev_index, new_index)
 
+
 func _drop_weapon():
 	SavedData.weapons.remove(current_weapon.get_index() - 1)
 	var weapon_to_drop = current_weapon
@@ -146,7 +148,8 @@ func _drop_weapon():
 func _on_ManaRecoveryTimer_timeout():
 	self.mp += 1
 	SavedData.mp = self.mp
-	
+
+
 func _move_to_gamefail_scene():
 	SceneTransistor.start_transition_to("res://GameFail.tscn")
 
