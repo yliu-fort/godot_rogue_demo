@@ -3,7 +3,7 @@
 [ext_resource path="res://core/Room.tscn" type="PackedScene" id=1]
 [ext_resource path="res://core/Door.tscn" type="PackedScene" id=2]
 [ext_resource path="res://props_itens/HealthPotion.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Characters/Dummy.tscn" type="PackedScene" id=4]
+[ext_resource path="res://enemies/Dummy.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 8 )

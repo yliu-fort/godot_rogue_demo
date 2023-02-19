@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Characters/Character.gd" type="Script" id=1]
-[ext_resource path="res://FSM.gd" type="Script" id=2]
+[ext_resource path="res://core/FSM.gd" type="Script" id=2]
 
 [node name="Character" type="RigidBody2D"]
 mode = 2

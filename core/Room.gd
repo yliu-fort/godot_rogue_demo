@@ -6,9 +6,9 @@ export(bool) var boss_room = false
 const SPAWN_EXPLOSION_SCENE: PackedScene = preload("res://effects/SpawnExplosion.tscn")
 
 const ENEMY_SCENES: Dictionary = {
-	"FLYING_CREATURE": preload("res://Characters/FlyingCreature.tscn"),
-	"GOBLIN": preload("res://Characters/Goblin.tscn"),
-	"SLIMEBOSS": preload("res://Characters/SlimeBoss.tscn")
+	"FLYING_CREATURE": preload("res://enemies/flying creature/FlyingCreature.tscn"),
+	"GOBLIN": preload("res://enemies/goblin/Goblin.tscn"),
+	"SLIMEBOSS": preload("res://enemies/slime/SlimeBoss.tscn")
 }
 
 const TILE_SIZE: int = 16

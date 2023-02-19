@@ -17,12 +17,12 @@ _global_script_classes=[ {
 "base": "Character",
 "class": "Enemy",
 "language": "GDScript",
-"path": "res://Characters/Enemy.gd"
+"path": "res://enemies/Enemy.gd"
 }, {
 "base": "Node",
 "class": "FiniteStateMachine",
 "language": "GDScript",
-"path": "res://FSM.gd"
+"path": "res://core/FSM.gd"
 }, {
 "base": "Area2D",
 "class": "Hitbox",

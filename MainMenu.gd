@@ -13,4 +13,4 @@ func _on_GameStartButton_pressed():
 
 
 func _on_ToTestSceneButton_pressed():
-	SceneTransistor.start_transition_to("res://Test.tscn")
+	SceneTransistor.start_transition_to("res://test_utils/Test.tscn")
