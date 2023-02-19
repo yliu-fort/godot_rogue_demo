@@ -1,7 +1,7 @@
 [gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://weapons/WeaponHitbox.gd" type="Script" id=1]
-[ext_resource path="res://effects/charged_slash_effect.gdshader" type="Shader" id=2]
+[ext_resource path="res://shader/Sihoutte.gdshader" type="Shader" id=2]
 [ext_resource path="res://heroes/knight/weapon_sword_1.png" type="Texture" id=3]
 [ext_resource path="res://weapons/Weapon.gd" type="Script" id=4]
 [ext_resource path="res://core/Hitbox.tscn" type="PackedScene" id=5]
@@ -11,6 +11,7 @@
 [sub_resource type="ShaderMaterial" id=28]
 resource_local_to_scene = true
 shader = ExtResource( 2 )
+shader_param/outline_color = Color( 1, 1, 1, 1 )
 shader_param/active = false
 
 [sub_resource type="CapsuleShape2D" id=32]
@@ -653,7 +654,7 @@ anims/charge = SubResource( 30 )
 anims/strong_attack = SubResource( 31 )
 
 [node name="PlayerDetector" type="Area2D" parent="."]
-collision_layer = 0
+collision_layer = 32768
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
@@ -690,6 +691,7 @@ tint_progress = Color( 0.223529, 0.223529, 0.223529, 0.831373 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 border_color = Color( 0.741176, 0.741176, 0.741176, 0.647059 )
 border_width = 2.0
 editor_only = false
@@ -698,6 +700,8 @@ editor_only = false
 
 [connection signal="area_entered" from="Node2D/Sprite/Hitbox" to="Node2D/Sprite/Hitbox" method="_on_Hitbox_area_entered"]
 [connection signal="body_entered" from="PlayerDetector" to="." method="_on_PlayerDetector_body_entered"]
+[connection signal="mouse_entered" from="PlayerDetector" to="." method="_on_PlayerDetector_mouse_entered"]
+[connection signal="mouse_exited" from="PlayerDetector" to="." method="_on_PlayerDetector_mouse_exited"]
 [connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]
 [connection signal="timeout" from="CoolDownTimer" to="." method="_on_CoolDownTimer_timeout"]
 

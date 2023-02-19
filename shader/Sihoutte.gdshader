@@ -1,12 +1,4 @@
-[gd_scene load_steps=8 format=2]
-
-[ext_resource path="res://enemies/Enemy.tscn" type="PackedScene" id=1]
-[ext_resource path="res://enemies/DummyFSM.gd" type="Script" id=2]
-[ext_resource path="res://props_itens/barrel.png" type="Texture" id=3]
-
-[sub_resource type="Shader" id=3]
-resource_local_to_scene = true
-code = "shader_type canvas_item;
+shader_type canvas_item;
 
 // The output color for the outline
 uniform vec4 outline_color : hint_color;
@@ -48,42 +40,4 @@ void fragment() {
 		COLOR = vec4(outline_color.rgb, min(alpha, 1.0));
 	}
 	//COLOR = vec4(1.0);
-}"
-
-[sub_resource type="ShaderMaterial" id=4]
-resource_local_to_scene = true
-shader = SubResource( 3 )
-shader_param/outline_color = Color( 0.678431, 0.682353, 0.0705882, 1 )
-shader_param/active = false
-
-[sub_resource type="SpriteFrames" id=1]
-animations = [ {
-"frames": [ ExtResource( 3 ) ],
-"loop": true,
-"name": "default",
-"speed": 5.0
-} ]
-
-[sub_resource type="CapsuleShape2D" id=2]
-radius = 6.0
-height = 10.0
-
-[node name="Dummy" instance=ExtResource( 1 )]
-mode = 1
-max_hp = 1000000
-hp = 1000000
-accerelation = 0
-max_speed = 0
-
-[node name="FiniteStateMachine" parent="." index="0"]
-script = ExtResource( 2 )
-
-[node name="AnimatedSprite" parent="." index="1"]
-material = SubResource( 4 )
-frames = SubResource( 1 )
-
-[node name="CollisionShape2D" parent="." index="2"]
-shape = SubResource( 2 )
-
-[node name="Position2D" parent="." index="6"]
-position = Vector2( 0, -11 )
+}

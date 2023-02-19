@@ -129,6 +129,7 @@ func pick_up_weapon(weapon: Weapon):
 
 
 func _drop_weapon():
+	SavedData.weapons[current_weapon.get_index() - 1].queue_free()
 	SavedData.weapons.remove(current_weapon.get_index() - 1)
 	var weapon_to_drop = current_weapon
 	_switch_weapon(UP)

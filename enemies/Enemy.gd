@@ -28,6 +28,8 @@ func _ready():
 	set_level(lv)
 	_update_mini_hp_bar_on_hp_changed(hp, max_hp)
 	var __ = connect("hp_changed", self, "_update_mini_hp_bar_on_hp_changed")
+	#__ = connect("mouse_entered", self, "_on_Area2D_mouse_entered") == OK
+	#__ = connect("mouse_exited", self, "_on_Area2D_mouse_exited") == OK
 
 
 func chase() -> void:
@@ -61,3 +63,4 @@ func queue_free():
 	if is_instance_valid(player):
 		player.obtain_exp(exp_on_death)
 	.queue_free()
+

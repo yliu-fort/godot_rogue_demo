@@ -1,10 +1,23 @@
 extends Node2D
 class_name Weapon
 
-export(bool) var on_floor: bool = false
+enum QUALITIES {NORMAL, GOOD, GREAT, EPIC, LEGEND}
+const quality_to_color:Dictionary = {QUALITIES.NORMAL:Color(255/255.0,255/255.0,255/255.0),
+QUALITIES.GOOD:Color(30/255.0,255/255.0,0/255.0),
+QUALITIES.GREAT:Color(0/255.0,112/255.0,221/255.0),
+QUALITIES.EPIC:Color(163/255.0,53/255.0,238/255.0),
+QUALITIES.LEGEND:Color(255/255.0,128/255.0,0/255.0)}
+
+export(QUALITIES) var quality = QUALITIES.NORMAL
+
+
+export(bool) var on_floor: bool = false setget set_on_floor
 
 var caster: Character = null setget set_caster
 var can_active_ability: bool = true
+
+onready var CHARGE_EFFECT_SHADER = preload("res://shader/charged_slash_effect.gdshader")
+onready var OUTLINE_SHADER = preload("res://shader/Sihoutte.gdshader")
 
 
 onready var animation_player = $AnimationPlayer
@@ -16,14 +29,21 @@ onready var cool_down_timer: Timer = $CoolDownTimer
 onready var ui = $UI
 onready var ability_icon = $UI/AbilityIcon
 onready var ability_icon_border = $UI/AbilityIcon/ReferenceRect
+onready var sprite = $Node2D/Sprite
+
 
 export(PackedScene) var weapon_ability = null
 
 func _ready():
+	OUTLINE_SHADER.resource_local_to_scene = true
+	CHARGE_EFFECT_SHADER.resource_local_to_scene = true
+	self.on_floor = self.on_floor
+
 	if not on_floor:
 		player_detector.set_collision_mask_bit(0, false)
 		player_detector.set_collision_mask_bit(1, false)
-		
+
+
 func get_attack_input() -> void:
 	if Input.is_action_just_pressed("ui_attack") and not animation_player.is_playing():
 		animation_player.play("charge")
@@ -70,7 +90,7 @@ func is_busy() -> bool:
 
 func reset_animation():
 	animation_player.play("RESET")
-	
+
 func _on_PlayerDetector_body_entered(body: PhysicsBody2D):
 	if body != null:
 		player_detector.set_collision_mask_bit(0, false)
@@ -113,3 +133,23 @@ func get_texture() -> Texture:
 func set_caster(new_caster: Character):
 	hitbox.caster = new_caster
 	caster = new_caster
+
+
+func set_on_floor(new_state: bool):
+	on_floor = new_state
+	if is_instance_valid(sprite):
+		if on_floor:
+			sprite.material.shader = OUTLINE_SHADER
+		else:
+			sprite.material.shader = CHARGE_EFFECT_SHADER
+
+
+func _on_PlayerDetector_mouse_entered():
+	if on_floor:
+		sprite.material.set_shader_param("outline_color", quality_to_color[quality])
+		sprite.material.set_shader_param("active", true)
+
+
+func _on_PlayerDetector_mouse_exited():
+	if on_floor:
+		sprite.material.set_shader_param("active", false)

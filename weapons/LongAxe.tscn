@@ -1,14 +1,8 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://weapons/long_axe.png" type="Texture" id=1]
 [ext_resource path="res://weapons/Weapon.tscn" type="PackedScene" id=2]
-[ext_resource path="res://effects/charged_slash_effect.gdshader" type="Shader" id=3]
 [ext_resource path="res://weapons/PoisonBite.tscn" type="PackedScene" id=4]
-
-[sub_resource type="ShaderMaterial" id=1]
-resource_local_to_scene = true
-shader = ExtResource( 3 )
-shader_param/active = false
 
 [sub_resource type="Animation" id=8]
 resource_local_to_scene = true
@@ -598,7 +592,6 @@ load_path = "res://.import/Icon45.png-d5822677e969c71fea64ae8cfc2adb00.stex"
 weapon_ability = ExtResource( 4 )
 
 [node name="Sprite" parent="Node2D" index="0"]
-material = SubResource( 1 )
 position = Vector2( 7, 7.15256e-07 )
 texture = ExtResource( 1 )
 

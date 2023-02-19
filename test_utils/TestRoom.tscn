@@ -64,18 +64,21 @@ shape = SubResource( 2 )
 position = Vector2( 112, 136 )
 
 [node name="Hammer" parent="WeaponSpawnPos/Position2D" index="0" instance=ExtResource( 7 )]
+quality = 2
 on_floor = true
 
 [node name="Position2D2" type="Position2D" parent="WeaponSpawnPos" index="1"]
 position = Vector2( 112, 159 )
 
 [node name="LongAxe" parent="WeaponSpawnPos/Position2D2" index="0" instance=ExtResource( 8 )]
+quality = 1
 on_floor = true
 
 [node name="Position2D6" type="Position2D" parent="WeaponSpawnPos" index="2"]
 position = Vector2( 112, 179 )
 
 [node name="Sword" parent="WeaponSpawnPos/Position2D6" index="0" instance=ExtResource( 4 )]
+quality = 1
 on_floor = true
 
 [node name="Position2D3" type="Position2D" parent="WeaponSpawnPos" index="3"]
@@ -103,6 +106,7 @@ position = Vector2( 112, 114 )
 rotation = -1.5708
 
 [node name="Bow" parent="WeaponSpawnPos/Position2D8" index="0" instance=ExtResource( 6 )]
+quality = 3
 on_floor = true
 
 [node name="Position2D9" type="Position2D" parent="WeaponSpawnPos" index="8"]
@@ -110,4 +114,5 @@ position = Vector2( 109, 199 )
 rotation = -1.5708
 
 [node name="MagicWand" parent="WeaponSpawnPos/Position2D9" index="0" instance=ExtResource( 5 )]
+quality = 3
 on_floor = true

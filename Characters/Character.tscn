@@ -1,9 +1,17 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Characters/Character.gd" type="Script" id=1]
 [ext_resource path="res://core/FSM.gd" type="Script" id=2]
+[ext_resource path="res://shader/Sihoutte.gdshader" type="Shader" id=3]
+
+[sub_resource type="ShaderMaterial" id=1]
+resource_local_to_scene = true
+shader = ExtResource( 3 )
+shader_param/outline_color = Color( 0.807843, 0.811765, 0.156863, 1 )
+shader_param/active = false
 
 [node name="Character" type="RigidBody2D"]
+input_pickable = true
 mode = 2
 gravity_scale = 0.0
 continuous_cd = 1
@@ -14,6 +22,7 @@ script = ExtResource( 1 )
 script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+material = SubResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
@@ -22,4 +31,6 @@ script = ExtResource( 2 )
 [node name="ResourceRecoveryTimer" type="Timer" parent="."]
 autostart = true
 
+[connection signal="mouse_entered" from="." to="." method="_on_Character_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_Character_mouse_exited"]
 [connection signal="timeout" from="ResourceRecoveryTimer" to="." method="_on_ResourceRecoveryTimer_timeout"]

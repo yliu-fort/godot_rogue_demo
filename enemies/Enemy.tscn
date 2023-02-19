@@ -1,8 +1,15 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://enemies/Enemy.gd" type="Script" id=1]
 [ext_resource path="res://Characters/Character.tscn" type="PackedScene" id=2]
 [ext_resource path="res://ui/purewhite_gradient_texture.tres" type="Gradient" id=3]
+[ext_resource path="res://shader/Sihoutte.gdshader" type="Shader" id=4]
+
+[sub_resource type="ShaderMaterial" id=3]
+resource_local_to_scene = true
+shader = ExtResource( 4 )
+shader_param/outline_color = Color( 0.682353, 0.0980392, 0.0705882, 1 )
+shader_param/active = false
 
 [sub_resource type="GradientTexture2D" id=1]
 gradient = ExtResource( 3 )
@@ -17,6 +24,9 @@ collision_layer = 4
 collision_mask = 5
 script = ExtResource( 1 )
 exp_on_death = 0
+
+[node name="AnimatedSprite" parent="." index="1"]
+material = SubResource( 3 )
 
 [node name="PathTimer" type="Timer" parent="." index="4"]
 wait_time = 0.5

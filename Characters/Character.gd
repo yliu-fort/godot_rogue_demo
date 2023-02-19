@@ -154,6 +154,8 @@ func set_maxlv(new_lv: int) -> void:
 	emit_signal("lv_changed", lv, max_lv)
 
 func _level_up():
+	if state_machine.state == state_machine.states.dead:
+		state_machine.set_state(state_machine.states.idle)
 	self.lv += 1
 	self.max_hp += hp_incr
 	self.max_mp += mp_incr
@@ -224,3 +226,11 @@ func obtain_exp(obtained_exp: int):
 # dam^2 / (dam + def) * (1 + 0.05*N(0,1))
 func _evaluate_damage(dam: int) -> int:
 	return int(round((1 + randf()*0.1-0.05) * pow(dam,2)/max(1, dam + self.def)))
+
+
+func _on_Character_mouse_entered():
+	animated_sprite.material.set_shader_param("active", true)
+
+
+func _on_Character_mouse_exited():
+	animated_sprite.material.set_shader_param("active", false)
