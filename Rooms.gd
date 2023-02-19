@@ -51,7 +51,7 @@ func _spawn_rooms():
 			else:
 				if SavedData.num_floor % slime_boss_floor == 0:
 					room = SLIME_BOSS_ROOM.instance()
-					room.num_enemies_to_spawn = int(SavedData.num_floor) / slime_boss_floor
+					room.num_enemies_to_spawn = int(SavedData.num_floor / slime_boss_floor)
 				else:
 					if (randi() % 3 == 0  or i == num_levels -2) and not special_room_spawned:
 						room = SPECIAL_ROOMS[randi() % SPECIAL_ROOMS.size()].instance()

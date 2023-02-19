@@ -6,12 +6,30 @@ var path: PoolVector2Array
 onready var navigation: Navigation2D = get_tree().current_scene.get_node("Rooms")
 onready var player: Character = get_tree().current_scene.get_node("Player")
 onready var path_timer: Timer = $PathTimer
+onready var status_display_ui: TextureProgress = $Position2D/mini_hp_bar
 
 export(int) var exp_on_death = 0
 
+func _update_mini_hp_bar_on_hp_changed(new_hp, max_hp):
+	status_display_ui.value = int(100 * new_hp / max_hp)
+	if status_display_ui.value == 100:
+		status_display_ui.visible = false
+	else:
+		status_display_ui.visible = true
+	if status_display_ui.value < 25:
+		status_display_ui.tint_progress = Color(138/255.0,41/255.0,41/255.0,1) # red
+	elif status_display_ui.value < 50:
+		status_display_ui.tint_progress = Color(185/255.0,190/255.0,18/255.0,1) # yellow
+	else:
+		status_display_ui.tint_progress = Color(11/255.0,145/255.0,31/255.0,1) # green
+
+
 func _ready():
 	set_level(lv)
-	
+	_update_mini_hp_bar_on_hp_changed(hp, max_hp)
+	var __ = connect("hp_changed", self, "_update_mini_hp_bar_on_hp_changed")
+
+
 func chase() -> void:
 	if path:
 		var vector_to_next_point: Vector2 = path[0] - global_position

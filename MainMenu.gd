@@ -5,7 +5,6 @@ extends CanvasLayer
 func _ready():
 	pause_mode = Node.PAUSE_MODE_PROCESS
 	get_tree().paused = false
-	print("Game waiting...")
 
 
 func _on_GameStartButton_pressed():

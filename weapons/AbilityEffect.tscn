@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://weapons/AbilityEffect.gd" type="Script" id=1]
-[ext_resource path="res://core/Hitbox.gd" type="Script" id=2]
+[ext_resource path="res://weapons/PointImpactHitbox.gd" type="Script" id=2]
 [ext_resource path="res://effects/HolyExplosion_96x96.png" type="Texture" id=3]
 
 [sub_resource type="Animation" id=1]
@@ -96,8 +96,7 @@ anims/animation = SubResource( 2 )
 collision_layer = 0
 collision_mask = 4
 script = ExtResource( 2 )
-damage = 3
-knockback_force = 50
+knockback_force = 150
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource( 3 )

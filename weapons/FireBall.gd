@@ -10,24 +10,26 @@ var knife_speed: int = 0
 
 const FIREHIT_SCENE: PackedScene = preload("res://weapons/FireHit.tscn")
 
+
 func _enter_tree():
 	if not caster or caster.mp < required_mp:
 		.queue_free()
 	else:
 		caster.mp -= required_mp
 
+
 func _ready():
 	damage *= caster.atk
+
 
 func launch(initial_position: Vector2, dir: Vector2, speed: int) -> void:
 	position = initial_position
 	direction = dir
 	knockback_direction = dir
 	knife_speed = speed
-	
 	rotation += dir.angle()
-	
-	
+
+
 func _physics_process(delta: float):
 	position += direction * knife_speed * delta
 

@@ -105,8 +105,10 @@ tracks/3/keys = {
 modulate = Color( 1, 1, 1, 0.72549 )
 texture = ExtResource( 2 )
 hframes = 31
-frame = 0
 
 [node name="AnimationPlayer" parent="." index="1"]
 anims/RESET = SubResource( 1 )
 anims/animation = SubResource( 2 )
+
+[node name="Hitbox" parent="." index="2"]
+knockback_force = 50

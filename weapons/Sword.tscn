@@ -611,7 +611,7 @@ position = Vector2( 18, 0 )
 texture = ExtResource( 2 )
 hframes = 3
 
-[node name="AbilityIcon" parent="UI" index="1"]
+[node name="AbilityIcon" parent="UI" index="0"]
 texture_under = ExtResource( 5 )
 
 [editable path="Node2D/Sprite/Hitbox"]
