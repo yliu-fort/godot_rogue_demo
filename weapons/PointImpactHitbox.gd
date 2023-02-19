@@ -2,7 +2,7 @@ extends Hitbox
 
 
 func _collide(body: Character):
-	knockback_direction = (body.position - global_position).normalized()
+	knockback_direction = (body.global_position - global_position).normalized()
 	if body == null or not body.has_method("take_damage"):
 		queue_free()
 	else:
